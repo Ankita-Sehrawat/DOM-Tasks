@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insta Story</title>
+
+    <style>
+        body {
+            background-color: rgb(159, 220, 232);
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        #main {
+            width: 400px;
+            height: 600px;
+            background-color: black;
+            border-radius: 10px;
+            box-shadow: 1px 1px 16px black;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+        }
+
+        .all_stories {
+            width: 100%;
+            height: 140px;
+            padding: 20px 0px 20px 15px !important;
+            border-bottom: 2px solid rgb(172, 168, 168);
+            /*why is not d-flex working same as white space etc.?????????*/
+            /* display: flex;
+            gap: 10px; */
+            white-space: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .all_stories::-webkit-scrollbar {
+            height: 0px;
+        }
+
+        .story {
+            width: 100px;
+            height: 100px;
+            border: 4px solid transparent;
+            background: linear-gradient(white, white)padding-box, linear-gradient(rgba(214, 15, 198, 0.849), rgb(234, 64, 34), rgba(210, 40, 213, 0.968))border-box;
+            border-radius: 50%;
+            overflow: hidden;
+            display: inline-block;
+            margin-left: 15px;
+        }
+
+        /* instead of display flex=> parent element:- white-space: nowrap;
+                                     child element :- display: inline-block; 
+        */
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .show_story {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            /* background-color: rebeccapurple; */
+            display: none;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="main">
+        <div class="show_story"></div>
+        <div class="all_stories">
+
+        </div>
+    </div>
+</body>
+
+<script>
+    let arr = [
+        {
+            profile_img: "https://images.unsplash.com/photo-1526510747491-58f928ec870f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTQxfHx8ZW58MHx8fHx8",
+            stories: "https://images.unsplash.com/photo-1555817129-2fa6b81bd8e5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTU1fHx8ZW58MHx8fHx8"
+        },
+        {
+            profile_img: "https://images.unsplash.com/photo-1507914464562-6ff4ac29692f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTU3fHx8ZW58MHx8fHx8",
+            stories: "https://images.unsplash.com/photo-1512540452972-baac55d40ef1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTY4fHx8ZW58MHx8fHx8"
+        },
+        {
+            profile_img: "https://images.unsplash.com/photo-1514626585111-9aa86183ac98?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTcxfHx8ZW58MHx8fHx8",
+            stories: "https://images.unsplash.com/photo-1471991750293-5fc0e377b550?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTc4fHx8ZW58MHx8fHx8"
+        },
+        {
+            profile_img: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MjI4fHx8ZW58MHx8fHx8",
+            stories: "https://images.unsplash.com/photo-1476234251651-f353703a034d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8NDAyfHx8ZW58MHx8fHx8"
+        },
+        {
+            profile_img: "https://images.unsplash.com/photo-1537735319956-df7db4b6a4e9?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8NDM1fHx8ZW58MHx8fHx8",
+            stories: "https://images.unsplash.com/photo-1508904635850-d986b19765d0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8NDk1fHx8ZW58MHx8fHx8"
+        },
+    ]
+
+
+    let stories = document.querySelector(".all_stories");
+    let add = " ";
+
+    arr.forEach((elem, i) => {
+        // console.log(elem.profile_img)  //working
+        add = add + `<div class="story">
+            <img id= ${i} src= ${elem.profile_img} alt="img">
+        </div>`;
+    })
+    stories.innerHTML = add   //to finally attach html and javascript to show above {img div}.
+
+
+    // //border start : ###################
+    // // Option 1: 
+    let story_dp = document.querySelectorAll(".story");
+
+    story_dp.forEach((pic, i) => {
+        pic.addEventListener("click", function () {
+            pic.style.border = "none"
+        })
+    })
+
+    // // Option 2: 
+    // const story_dp = document.querySelectorAll(".story");
+
+    //     function handleStoryClick(event) {
+    //     const clickedStory = event.currentTarget;
+    //     clickedStory.style.border = "none";
+    // }
+
+    // story_dp.forEach((story) => {
+    //     story.addEventListener("click", handleStoryClick);
+    // });
+
+    // //border end ###################
+
+
+
+    // // option 1 : ##### **to show story**  ####
+    // stories.addEventListener("click", function (show) {
+    //     // console.log(show.target.id)
+
+    //     // border : 
+    //     // 1: only works on one border 
+    //     // document.querySelector(".story").style.border = "none"
+
+    //     // story : 
+    //     document.querySelector(".show_story").style.display = "block";
+    //     document.querySelector(".show_story").style.backgroundImage = `url(${arr[show.target.id].stories})`
+
+    //     setTimeout(function () {
+    //         document.querySelector(".show_story").style.display = "none";
+    //     }, 3000)
+
+    // })
+
+
+    // // option 2 : ##### **to show story**  ####
+    story_dp.forEach((storyy, i) => {
+        storyy.addEventListener("click", function (event) {
+
+            // just for understanding the concept:
+            // 1st : 
+            // console.log(event.target.id)  //its kind of getting us the index number of each element.
+            // console.log(arr[event.target.id].stories);  
+
+            // 2nd : we can also get the index by using foreach :-
+            // arr.forEach((e) => {
+            //     console.log(e.stories)
+            // })  
+
+            document.querySelector(".show_story").style.display = "block";
+
+            document.querySelector(".show_story").style.backgroundImage = `url(${arr[event.target.id].stories}`;
+            setTimeout(function () {
+                document.querySelector(".show_story").style.display = "none"
+            }, 4000)
+        })
+    })
+
+
+
+</script>
+
+</html>

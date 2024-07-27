@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor</title>
+
+    <style>
+        body {
+            background-color: black;
+            min-height: 100vh;
+        }
+
+
+        #cursor {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: aqua;
+            box-shadow: 1px 1px 20px aqua;
+            position: absolute;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="cursor"></div>
+
+
+    <script>
+
+        let body = document.body;
+        let cursor = document.getElementById('cursor')
+
+        body.addEventListener("mousemove", function (moves) {
+            cursor.style.top = moves.y + "px";
+            cursor.style.left = moves.x + "px";
+        })
+
+    </script>
+
+</body>
+
+</html>

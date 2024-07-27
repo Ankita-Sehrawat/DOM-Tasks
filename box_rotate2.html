@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotation 2 Boxes</title>
+
+    <style>
+        body {
+            background-color: black;
+            height: 100vh;
+            display: flex;
+            gap: 300px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box1 {
+            width: 300px;
+            height: 300px;
+            border: 2px dashed white;
+            background-color: rgb(110, 130, 38);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box2 {
+            width: 300px;
+            height: 300px;
+            border: 2px dashed white;
+            background-color: rgb(68, 139, 183);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+        }
+
+        .rotation {
+            animation-name: rotate;
+            animation-timing-function: linear;
+            animation-duration: 10s;
+            border-radius: 50%;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 30px;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .txt_ctr {
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="txt_ctr">
+        <div class="box1">
+            <h1>HELLO</h1>
+        </div>
+        <button id="btn1">Click Here</button>
+    </div>
+
+    <div class="txt_ctr">
+        <div class="box2">
+            <h1>HELLO 2</h1>
+        </div>
+        <button id="btn2">Click Here</button>
+    </div>
+
+
+    <script>
+        let box1 = document.querySelector(".box1");
+        let box2 = document.querySelector(".box2");
+        let btn1 = document.getElementById("btn1");
+        let btn2 = document.getElementById("btn2");
+        let rotated_box = box1;
+        let condition = false;
+
+        // 1st option::- 
+        // btn1.addEventListener("click", function () {
+        //     if (condition == false) {
+        //         box1.classList.add("rotation");
+        //         box2.classList.remove("rotation");
+        //         condition = true;
+        //     }
+        //     else {
+        //         box1.classList.remove("rotation");
+        //         condition = false;
+        //     }
+        // })
+
+        // btn2.addEventListener("click", function () {
+        //     if (condition == true) {
+        //         box2.classList.add("rotation");
+        //         box1.classList.remove("rotation");
+        //         condition = false;
+        //     }
+        //     else {
+        //         box2.classList.remove("rotation");
+        //         condition = true;
+        //     }
+        // })
+
+
+
+        // 2nd option::- 
+        btn1.addEventListener("click", function () {
+            rotated_box.classList.remove("rotation");
+            box1.classList.add("rotation");
+            rotated_box = box1;
+        })
+
+        btn2.addEventListener("click", function () {
+            rotated_box.classList.remove("rotation");
+            box2.classList.add("rotation");
+            rotated_box = box2;
+        })
+
+        // //  NOTE::-   The reason the rotation is removed from the rotatingBox first is that the code needs to keep track of which box is currently rotating. By removing the rotation from the previous rotatingBox before adding it to the new one, the code ensures that only one box is rotating at a time.
+        // This approach allows the code to toggle the rotation between box1 and box2 by updating the rotatingBox variable and applying the rotation class accordingly.
+
+    </script>
+
+
+</body>
+
+</html>
